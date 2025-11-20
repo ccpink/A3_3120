@@ -47,7 +47,7 @@ int main(void) {
 
 
 
-    if (pid == 0)   //IF child
+    if (pid == 0)   //IF Child
     {
         while (1){
             char child_buffer[255];
