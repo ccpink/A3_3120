@@ -6,9 +6,8 @@
 #include <sys/wait.h>
 
 int main(void) {
-
     //Initialize Variables
-    char buffer[255];
+    int max_input = 254;
     int length;
     pid_t pid;
     int can_run = 1;
@@ -17,11 +16,11 @@ int main(void) {
     int child_to_parent[2];
 
     //Create the pipes
-    if (pipe(pipe_parent_to_child) == -1) {
+    if (pipe(parent_to_child) == -1) {
         perror("pipe_parent_to_child");
         exit(EXIT_FAILURE);
     }
-    if (pipe(pipe_child_to_parent) == -1) {
+    if (pipe(child_to_parent) == -1) {
         perror("pipe_child_to_parent");
         exit(EXIT_FAILURE);
     }
@@ -31,7 +30,7 @@ int main(void) {
 
     if (pid == -1) {
         perror("Problem creating child");
-        can_run = 0;
+        return 0;
     }
 
     //Close pipes the parent/child will not ever user before the loop
@@ -46,31 +45,59 @@ int main(void) {
         close(parent_to_child[0]);
     }
 
-    //While Loop
-    while(can_run) {
 
-        if (pid == 0)   //IF child
-        {
+
+    if (pid == 0)   //IF child
+    {
+        while (1){
+            char child_buffer[255];
             //Wait on parent writing
+            while (read(parent_to_child[0], &child_buffer, 1) > 0)
+            {
 
+            }
             //Read Pipe
 
-            //If CLOSE exit
+            //If output is close exit
+            if (strcmp(child_buffer, "close") == 0) {
+                close(child_to_parent[1]);
+                close(parent_to_child[0]);
+                exit(1);
+            }
 
             //Flip characters
 
             //Write to secondary pipe
-        }
-        else    //IF Parent
-        {
-            //Get New User Input
-
-            //Wait for response
-
-            //If input was close exit.
-
-            //Ouput Response
+            write(child_to_parent[1], child_buffer, strlen(child_buffer) + 1);
         }
     }
+    else    //IF Parent
+    {
+        while (1){
+            char parent_buffer[255];
+
+            //Get New User Input
+            fgets(parent_buffer, max_input, stdin);
+
+            //Send to Child.
+            write(parent_to_child[1], parent_buffer, strlen(parent_buffer) + 1);
+
+            //If input was close exit.
+            if (strcmp(parent_buffer, "close") == 0) {
+                close(child_to_parent[0]);
+                close(parent_to_child[1]);
+                exit(1);
+            }
+
+            while (read(child_to_parent[0], &parent_buffer, 1) > 0)
+            {
+
+            }
+            //Ouput Child Response
+
+
+        }
+    }
+
     return 0;
 }
