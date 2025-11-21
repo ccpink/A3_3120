@@ -1,6 +1,6 @@
 HOW TO USE:
 First extract files from the .ZIP folder.
-Run make to create the exectuable.
+Run make to create the executable file.
 Run the executable by typing ./ASN-3.
 You may then start typing input into the program.
 When you are done you may close the program by typing exit.
