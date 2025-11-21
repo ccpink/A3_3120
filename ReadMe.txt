@@ -1,5 +1,9 @@
-
-
+HOW TO USE:
+First extract files from the .ZIP folder.
+Run make to create the exectuable.
+Run the executable by typing ./ASN-3.
+You may then start typing input into the program.
+When you are done you may close the program by typing exit.
 
 SOURCES:
 https://www.geeksforgeeks.org/c/c-program-demonstrate-fork-and-pipe/ "General Demonstration"
