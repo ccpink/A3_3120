@@ -76,7 +76,7 @@ int main(void) {
                 }
             }
 
-            printf("The String from Child to Parent is: %s", child_buffer);
+            printf("The String from Child to Parent is: %s\n", child_buffer);
 
             //Write to secondary pipe
             write(child_to_parent[1], child_buffer, strlen(child_buffer) + 1);
@@ -117,7 +117,7 @@ int main(void) {
             parent_buffer[i] = '\0';
 
             //Output Child Response
-            printf("The String Received by Parent is: %s", parent_buffer);
+            printf("The String Received by Parent is: %s\n", parent_buffer);
 
         }
     }
