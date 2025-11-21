@@ -100,7 +100,7 @@ int main(void) {
             //Send to Child.
             write(parent_to_child[1], parent_buffer, strlen(parent_buffer) + 1);
             close(parent_to_child[1]);
-            //If input was close exit.
+            //If input was exit, exit.
             if (strcmp(parent_buffer, "exit") == 0) {
                 close(child_to_parent[0]);
                 exit(1);
