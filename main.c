@@ -59,7 +59,7 @@ int main(void) {
             child_buffer[i] = '\0';
 
             //If output is close exit
-            if (strcmp(child_buffer, "close") == 0) {
+            if (strcmp(child_buffer, "exit") == 0) {
                 close(child_to_parent[1]);
                 close(parent_to_child[0]);
                 exit(1);
@@ -101,7 +101,7 @@ int main(void) {
             write(parent_to_child[1], parent_buffer, strlen(parent_buffer) + 1);
             close(parent_to_child[1]);
             //If input was close exit.
-            if (strcmp(parent_buffer, "close") == 0) {
+            if (strcmp(parent_buffer, "exit") == 0) {
                 close(child_to_parent[0]);
                 exit(1);
             }
