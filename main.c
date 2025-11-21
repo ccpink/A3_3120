@@ -22,11 +22,11 @@ int main(void) {
 
         //Create the pipes
         if (pipe(parent_to_child) == -1) {
-            perror("pipe_parent_to_child");
+            perror("problem with pipe parent_to_child");
             exit(-1);
         }
         if (pipe(child_to_parent) == -1) {
-            perror("pipe_child_to_parent");
+            perror("problem with pipe child_to_parent");
             close(parent_to_child[0]);
             close(parent_to_child[1]);
             exit(-1);
@@ -35,7 +35,7 @@ int main(void) {
         pid = fork();
 
         if (pid == -1) {
-            perror("Problem creating child");
+            perror("Problem creating child during fork");
             close(parent_to_child[0]);
             close(parent_to_child[1]);
             close(child_to_parent[0]);
