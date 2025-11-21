@@ -11,6 +11,7 @@ int main(void) {
     int wait_status;
     int max_input = 254;
     pid_t pid;
+    int i = 0;
     char single_char;
 
 
@@ -48,7 +49,7 @@ int main(void) {
             close(parent_to_child[1]);
 
             char child_buffer[255];
-            int i = 0;
+            i = 0;
             //Wait on parent writing
             while (read(parent_to_child[0], &single_char, 1) > 0)
             {
@@ -107,7 +108,7 @@ int main(void) {
 
             wait(&wait_status);
 
-            int i = 0;
+            i = 0;
             while (read(child_to_parent[0], &single_char, 1) > 0)
             {
                 parent_buffer[i] = single_char;
